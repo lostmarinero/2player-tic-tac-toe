@@ -8,7 +8,7 @@ class Board
 
   def make_spaces
     board = {}
-    9.times {|x| board[x + 1] = 0 }
+    9.times {|x| board[x + 1] = nil }
     board
   end
 

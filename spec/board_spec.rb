@@ -16,8 +16,8 @@ describe Board do
     end
 
     it 'has empty spaces' do
-      expect(@board.spaces[1]).to eq(0)
-      expect(@board.spaces[9]).to eq(0)
+      expect(@board.spaces[1]).to eq(nil)
+      expect(@board.spaces[9]).to eq(nil)
     end
 
   end

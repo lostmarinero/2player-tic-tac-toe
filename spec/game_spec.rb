@@ -18,16 +18,20 @@ describe 'Game' do
         expect(@game).to be_an_instance_of(Game)
       end
 
-      it 'has a player1' do
-        expect(@game.player1).to be_an_instance_of(Player)
+      it 'has a first player' do
+        expect(@game.players[0]).to be_an_instance_of(Player)
       end
 
-      it 'has a player2' do
-        expect(@game.player2).to be_an_instance_of(Player)
+      it 'has a second player' do
+        expect(@game.players[1]).to be_an_instance_of(Player)
       end
 
       it 'has a board' do
         expect(@game.board).to be_an_instance_of(Board)
+      end
+
+      it 'gives player one the turn' do
+        expect()
       end
 
     end
