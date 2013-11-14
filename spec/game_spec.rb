@@ -25,6 +25,11 @@ describe 'Game' do
       it 'has a player2' do
         expect(@game.player2).to be_an_instance_of(Player)
       end
+
+      it 'has a board' do
+        expect(@game.board).to be_an_instance_of(Board)
+      end
+
     end
   
   end
