@@ -1,9 +1,7 @@
 require_relative('spec_helper')
 
 describe Player do
-  before :each do
-    @player = Player.new('Jaime')
-  end
+   let(:player) { Player.new('Jaime', 1) }
 
   describe '#new' do
   
@@ -15,11 +13,15 @@ describe Player do
   
     context 'with valid parameters' do
       it 'returns a player object' do
-        expect(@player).to be_an_instance_of(Player)
+        expect(player).to be_an_instance_of(Player)
       end
 
       it 'returns the correct name' do
-        expect(@player.name).to eq('Jaime')
+        expect(player.name).to eq('Jaime')
+      end
+
+      it 'has an id' do
+        expect(player.id).to eq(1)
       end
     
     end
