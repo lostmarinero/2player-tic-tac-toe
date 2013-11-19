@@ -1,17 +1,24 @@
 class GameState
 
-  attr_accessor :current_game
+  attr_accessor :current_game, :board_state
 
-  attr_reader :available_moves, :current_turn
+  attr_reader :current_turn
 
   def initialize(game)
     self.current_game = game
-    @available_moves = game.open_spaces
     @current_turn = game.current_player_turn
   end
 
-  def next_move(current_turn)
+  def board_state
+    current_game.board
+  end
 
+  def available_moves
+    current_game.open_spaces
+  end
+
+  def next_move
+    current_game.set_player(available_moves.first, 1)
   end
 
 end

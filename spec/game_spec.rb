@@ -52,7 +52,6 @@ describe 'Game' do
         it 'returns 9 available spaces' do
           expect(open_spaces.length).to eq(9)
         end
-
       end
 
       context 'with 4 spaces available' do
@@ -68,7 +67,12 @@ describe 'Game' do
           expect(game.open_spaces.length).to eq(0)
         end
       end
+    end
 
+    describe 'attributes' do
+      subject { game }
+
+      its(:board) { should be_an_instance_of(Array)}
     end
 
 end
