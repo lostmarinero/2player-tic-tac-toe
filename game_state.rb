@@ -10,6 +10,8 @@ class GameState
     @current_turn = game.current_player_turn
   end
 
+  def next_move(current_turn)
 
+  end
 
 end

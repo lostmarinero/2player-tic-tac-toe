@@ -24,8 +24,22 @@ describe GameState do
       it 'has the current player\'s turn' do
         expect(game_state.current_turn).to eq(1)
       end
+    end
+  end
 
+  describe '#next_move' do
+    context 'with valid parameters' do
+      it 'takes the player\'s turn as input' do
+        expect(game_state).to receive(:next_move).with(:current_turn)
+      end
     end
 
+    context 'when its the computer\'s turn' do
+      it 'something' do
+        pending
+      end
+    end
   end
+
+
 end
