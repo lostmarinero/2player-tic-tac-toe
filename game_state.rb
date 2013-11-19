@@ -9,6 +9,12 @@ class GameState
     @current_turn = game.current_player_turn
   end
 
+  def analyze_state
+    if current_game.finished?
+      return true
+    end
+  end
+
   def board_state
     current_game.board
   end
@@ -20,5 +26,6 @@ class GameState
   def next_move
     current_game.set_player(available_moves.first, 1)
   end
+
 
 end

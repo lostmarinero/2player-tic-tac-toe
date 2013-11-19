@@ -1,6 +1,5 @@
 require_relative('spec_helper')
 
-
 describe GameState do
 
   let(:game) { Game.new('Kevin', 'Bob') }
@@ -38,8 +37,6 @@ describe GameState do
   # end
 
   describe '#next_move' do
-    # let(:game_state)  { :available_moves => [1, 0, 2, 2, 2, 1, 0, 0, 1] }
-    
     context 'with valid parameters' do
       before do
         game_state.current_game.board = [1, 0, 2, 2, 2, 1, 0, 0, 1]
@@ -62,9 +59,14 @@ describe GameState do
         end
 
       end
-
     end
-  end
 
+    describe "#analyze_state" do
+      it 'checks to see if the game_state is finished' do
+        expect(game_state.current_game).to receive(:finished?).and_return(true)
+      end
+    end
+
+  end
 
 end
