@@ -73,10 +73,15 @@ describe GameState do
           # game_state.stub(:check_for_winning_move).and_return(8)
         end
 
-        it 'check\'s for the winning move' do
+        it 'checks for the winning move' do
           game_state.current_game.stub(:check_two)
-          expect(game_state.curren_game.check_two).to have_received(1)
+          expect(game_state.current_game).to receive(:check_two).with(1)
           game_state.next_move
+        end
+
+        it 'finds the winning move space' do
+          game_state.next_move
+          expect(game_state.winning_move).to eq(8)
         end
 
         it 'makes a move' do
@@ -93,9 +98,18 @@ describe GameState do
       context 'when the human has a winning move' do
         before { game_state.current_game.board = [1, 0, 0, 2, 2, 0, 0, 1, 0] }       
 
+        it 'finds the winning space' do
+          game_state.next_move
+          expect( game_state.winning_move ).to eq(5)
+        end
+
+        it 'makes a move' do
+          expect{ game_state.next_move }.to change{ game_state.available_moves.count }.from(5).to(4)
+        end
+
         it 'blocks the win' do
-          pending
-          # expect { game_state. }
+          game_state.next_move
+          expect( game_state.board_state[5]).to eq(1)
         end
       end
     
@@ -151,7 +165,6 @@ describe GameState do
       it 'calculates the route value' do
         pending
       end
-
       
     end
 

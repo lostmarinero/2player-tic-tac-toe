@@ -43,13 +43,22 @@ class GameState
     current_game.set_player(input, player)
   end
 
+  def first_moves(turn)
+    if check_for_winning_move(turn)
+      current_game.set_player(winning_move, turn) 
+    elsif check_for_winning_move(turn + 1)
+      current_game.set_player(winning_move, turn)
+    end
+  end
+
   def next_move
-    if check_for_winning_move(current_turn)
-      current_game.set_player(winning_move, 1)
-    else 
+    unless first_moves(current_turn)
       current_game.set_player(available_moves.first, 1)
     end
   end
 
+  def reset_winning_move
+    self.winning_move = nil
+  end
 
 end
