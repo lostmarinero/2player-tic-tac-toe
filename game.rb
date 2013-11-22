@@ -20,18 +20,38 @@ class Game
      [0, 4, 8], [2, 4, 6]]
   end  
 
-  def three_in_a_row(winning_combo)
-    board[winning_combo[0]] == self.board[winning_combo[1]] && self.board[winning_combo[1]] == self.board[winning_combo[2]]
+  def three_in_a_row(winning_combo, player)
+    if board[winning_combo[1]] == player
+      [board[winning_combo[0]], board[winning_combo[1]], board[winning_combo[2]]].uniq.length == 1
+    end
   end
 
-  def check_player_wins(player)
-    winning_combos.each do |winning_combo|
-      if board[winning_combo[0]] == player
-        if three_in_a_row(winning_combo)
-          @winner = player
-        end
+  def two_in_a_row(winning_combo, player)
+    if board[winning_combo[1]] == player
+      if board[winning_combo[0]] == board[winning_combo[1]] && board[winning_combo[0]] == player
+        winning_combo[2]
+      elsif board[winning_combo[1]] == board[winning_combo[2]] 
+        winning_combo[0]
       end
     end
+  end
+
+  def check_two(player)
+    winning_combos.each do |winning_combo|
+        open_space = two_in_a_row(winning_combo, player)
+        return open_space if !open_space.nil?
+    end
+    nil
+  end
+
+  def check_win(player)
+    winning_combos.each do |winning_combo|
+      if three_in_a_row(winning_combo, player)
+        @winner = player
+        return true
+      end
+    end
+    false
   end
 
   def current_player_turn
@@ -50,12 +70,12 @@ class Game
     board[input] = player_num
   end
 
-  def filled?
-    !board.include?(0)
+  def draw?
+    !board.include?(0) && winner.nil?
   end
 
   def finished?
-    filled? || !winner.nil?
+    draw? || !winner.nil?
   end
 
   def next_turn

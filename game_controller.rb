@@ -33,9 +33,8 @@ class GameController
   end
 
   def check_winner(player)
-    current_game.check_player_wins(player)
+    current_game.check_win(player)
   end
-
 
   def make_move(player, move)
     current_game.set_player(move, player)
