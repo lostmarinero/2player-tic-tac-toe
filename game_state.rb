@@ -10,8 +10,8 @@ class GameState
     @winning_move = nil
   end
 
-  def check_for_win
-    @winning_move = current_game.check_two(current_turn)
+  def check_for_winning_move(turn)
+    @winning_move = current_game.check_two(turn)
     @winning_move ? true : false
   end
 
@@ -44,7 +44,7 @@ class GameState
   end
 
   def next_move
-    if check_for_win
+    if check_for_winning_move(current_turn)
       current_game.set_player(winning_move, 1)
     else 
       current_game.set_player(available_moves.first, 1)

@@ -30,7 +30,7 @@ describe GameState do
     end
   end
 
-  describe '#check_for_win' do
+  describe '#check_for_winning_move' do
     before do
       game_state.current_game.stub(:board).and_return([1, 1, 0, 2, 2, 0, 0, 0, 0])
       game_state.stub(:current_turn).and_return(1)
@@ -38,19 +38,20 @@ describe GameState do
 
     # it 'checks the current board\'s state' do
     #   expect(game_state).to receive(:board_state)
-    #   game_state.check_for_win
+    #   game_state.check_for_winning_move
     # end
 
-    it 'confirms it is the computer\'s turn' do
-      expect(game_state.current_turn).to eq(1)
+    it 'receives the current turn' do
+      game_state.check_for_winning_move(game_state.current_turn)
+      expect(game_state).to have_received(:current_turn)
     end
 
     it 'check\'s if the computer can win' do
-      expect(game_state.check_for_win).to eq(true)
+      expect(game_state.check_for_winning_move(game_state.current_turn)).to eq(true)
     end
 
     it 'sets the winning_move attribute' do
-      game_state.check_for_win
+      game_state.check_for_winning_move(game_state.current_turn)
       expect(game_state.winning_move).to eq(2)
     end
   end
@@ -67,16 +68,33 @@ describe GameState do
       end
 
       context 'with a winning move' do
+        before do
+          game_state.current_game.board = [0, 0, 0, 2, 2, 0, 1, 1, 0]
+          # game_state.stub(:check_for_winning_move).and_return(8)
+        end
 
-        before { game_state.current_game.board = [0, 0, 0, 2, 2, 0, 1, 1, 0] }
-
-        it 'takes the winning move' do
+        it 'check\'s for the winning move' do
+          expect(game_state.check_for_winning_move(game_state.current_turn)).to have_received(1)
           game_state.next_move
-          expect(game_state.current_game.check_win(1)).to eq(true)
         end
 
         it 'makes a move' do
           expect{ game_state.next_move }.to change{ game_state.available_moves.count }.from(5).to(4)
+        end
+
+        it 'win\'s the game' do
+          game_state.next_move
+          game_state.current_game.check_win(1)
+          expect( game_state.current_game.winner ).to eq(1)
+        end
+      end
+
+      context 'when the human has a winning move' do
+        before { game_state.current_game.board = [1, 0, 0, 2, 2, 0, 0, 1, 0] }       
+
+        it 'blocks the win' do
+          pending
+          # expect { game_state. }
         end
       end
     
