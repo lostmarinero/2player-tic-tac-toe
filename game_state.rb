@@ -22,13 +22,8 @@ class GameState
   end
 
   def final_state_value
-    if current_game.draw?
-      0
-    elsif current_game.winner == 1
-      1
-    elsif current_game.winner == 2
-      -1
-    end
+    return 0 if current_game.draw?
+    current_game.winner == 1 ? 1 : -1 
   end
 
   def board_state
