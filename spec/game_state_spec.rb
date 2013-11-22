@@ -74,7 +74,8 @@ describe GameState do
         end
 
         it 'check\'s for the winning move' do
-          expect(game_state.check_for_winning_move(game_state.current_turn)).to have_received(1)
+          game_state.current_game.stub(:check_two)
+          expect(game_state.curren_game.check_two).to have_received(1)
           game_state.next_move
         end
 
